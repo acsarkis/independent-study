@@ -8,9 +8,15 @@ public class Example {
 	private int prediction = -1;
 	
 	public Example(LinkedList<Integer> rawdataset) {
-		LinkedList<Integer> input = rawdataset;
-		this.classification = input.pollLast();
-		this.features = input;
+		this.classification = rawdataset.pollLast();
+		this.features = rawdataset;
+	}
+	
+	public Example clone() {
+		LinkedList<Integer> output = new LinkedList<Integer>();
+		output.addAll(this.features);
+		output.addLast(this.classification);
+		return new Example(output);
 	}
 	
 	public void setPrediction(int prediction) {
@@ -19,10 +25,6 @@ public class Example {
 	
 	public int getPrediction() {
 		return this.prediction;
-	}
-	
-	public void removeFeatureAtIndex(int index) {
-		this.features.remove(index);
 	}
 	
 	public int getNumFeatures() {
